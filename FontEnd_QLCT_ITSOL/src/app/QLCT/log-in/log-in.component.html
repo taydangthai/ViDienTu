@@ -1,0 +1,40 @@
+<div style="width: 100%; display: flex; justify-content: center">
+    <div class="alert alert-warning" *ngIf="err == -1" >
+        <button type = "button" class="close" data-dismiss="alter" aria-hidden="true"></button>
+        <strong>Tài khoản hoặc mật khẩu không chính xác</strong>
+    </div>
+</div>
+<div style="width: 100%; display: flex; justify-content: center">
+    <div class="alert alert-warning" *ngIf="checkLogin() == -1" >
+        <button type = "button" class="close" data-dismiss="alter" aria-hidden="true"></button>
+        <strong>Hãy nhập tài khoản</strong>
+    </div>
+</div>
+<div style="width: 100%; display: flex; justify-content: center">
+    <div class="alert alert-warning" *ngIf="checkLogin() == -2" >
+        <button type = "button" class="close" data-dismiss="alter" aria-hidden="true"></button>
+        <strong>Hãy nhập mật khẩu</strong>
+    </div>
+</div>
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <!-- Tabs Titles -->
+        <!-- Icon -->
+        <div class="fadeIn first">
+            <img src="./assets/img/login.png" style="width: 20px; height: 20px" id="icon" alt="Dang Nhap" />
+        </div>
+
+        <!-- Login Form -->
+        <form>
+            <input type="text" id="login" class="fadeIn second" name="login" placeholder="login" [(ngModel)]="userName" [ngModelOptions]="{standalone: true}">
+            <input type="password" id="password" class="fadeIn third" name="login" placeholder="password" [(ngModel)]="passWord" [ngModelOptions]="{standalone: true}">
+            <input type="submit" class="fadeIn fourth" value="Log In" (click)="login()">
+        </form>
+
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+            <a class="underlineHover" href="#">Forgot Password?</a>
+        </div>
+
+    </div>
+</div>

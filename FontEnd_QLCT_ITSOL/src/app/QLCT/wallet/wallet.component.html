@@ -1,0 +1,146 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Quản Lý Ví</h4>
+                        <p class="card-category"> Danh Sách Ví Ở Đây</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <button mat-raised-button type="button" matTooltip="Thêm Ví" [matTooltipPosition]="'above'"
+                                    class="btn btn-outline-primary btn-link btn-sm btn-just-icon">
+                                <i class="material-icons" data-toggle="modal" data-target="#flipFlop">them moi</i>
+                            </button>
+                            <table class="table">
+                                <thead class=" text-primary">
+                                <th></th>
+                                <th>STT</th>
+                                <th>Người Dùng</th>
+                                <th>Tên Ví</th>
+                                <th>Chữc Vụ</th>
+                                <th>Tiền Ban Đầu</th>
+                                <th>Tiền Hiện Tại</th>
+                                <th>Ngày Tạo</th>
+                                <th>Trạng Thái</th>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let item of walletGDClass; let i = index">
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" value="">
+                                                <span class="form-check-sign">
+                                                          <span class="check"></span>
+                                                      </span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>{{i + 1}}</td>
+                                    <td>{{item.name}}</td>
+                                    <td>{{item.walletName}}</td>
+                                    <td>{{item.role == 1 ? "chủ" : "Thành Viên"}}</td>
+                                    <td class="text-primary">{{item.balance | currency: "VND"}}</td>
+                                    <td class="text-primary">{{item.currency | currency: "VND"}}</td>
+                                    <td>{{item.createDate}}</td>
+                                    <td>
+                                        <button mat-raised-button type="button" matTooltip="Edit Task"
+                                                [matTooltipPosition]="'above'"
+                                                class="btn btn-primary btn-link btn-sm btn-just-icon" >
+                                            <i class="material-icons" >edit</i>
+                                        </button>
+                                        <button mat-raised-button type="button" matTooltip="Remove"
+                                                [matTooltipPosition]="'above'"
+                                                class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                            <i class="material-icons" data-toggle="modal" data-target="#myModal"
+                                               (click)="configRemove(item)">close</i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--  -->
+<div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                        <form action="" method="post" role="form" style="">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <h4 class="modal-title" style="text-align: center">Bạn Chắc Chắn Muốn Xoá Không?</h4>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary"
+                                            (click)="removeWalletById(itemWallet)">Đồng Ý
+                                    </button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Huỷ</button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- them moi -->
+    <div class="modal fade" id="flipFlop" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    </button>
+                    <h4 class="modal-title" id="modalLabel">Thêm Mới Ví</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label col-xs-3" name="fieldName" ngDefaultControl [(ngModel)]="walletName" [ngModelOptions]="{standalone: true}">Tên Ví</label>
+                        <div class="col-xs-9">
+                            <input type="email" class="form-control" placeholder="....." >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3" name="fieldName" ngDefaultControl [(ngModel)]="balance" [ngModelOptions]="{standalone: true}" minlength="3" pattern="[-+]?[0-9]">Số Tiền</label>
+                        <div class="col-xs-9">
+                            <input type="email" class="form-control" placeholder="....." >
+                        </div>
+                    </div>
+                    <!--<div class="form-group">
+                        <label class="control-label col-xs-3" name="fieldName" ngDefaultControl [(ngModel)]="createDate" [ngModelOptions]="{standalone: true}">Ngày Tạo</label>
+                        <div class="col-xs-9">
+                            <input type="date" class="form-control" placeholder="Ngày Tạo" >
+                        </div>
+                    </div>-->
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" (click)="addWallet()">Đồng Ý</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
